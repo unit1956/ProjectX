@@ -18,6 +18,8 @@ var TransactionView = Backbone.View.extend({
 		this.$el.html(this.template(data));
 		this.$el.attr('data-cid', asId);
 		this.$el.toggleClass('reconciled', this.model.get('reconciled'));
+		this.$el.addClass(this.model.get('amount') > 0 ? 'credit' : 'debit');
+
 		return this;
 	},
 

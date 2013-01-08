@@ -3,3 +3,11 @@
 .reconciled {
 	text-decoration: line-through;
 }
+
+.debit {
+	color: red;
+}
+
+.credit {
+	color: green;
+}

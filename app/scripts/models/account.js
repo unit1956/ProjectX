@@ -23,6 +23,8 @@ var Account = Backbone.Model.extend({
 	addTransaction: function(aoTransaction)
 	{
 		this.get('transactions').add(aoTransaction);
+
+		this.updateReconciledBalance();
 		this.updateAvailableBalance();
 	},
 
@@ -33,8 +35,8 @@ var Account = Backbone.Model.extend({
 
 	transactionRemoved: function(aoTransaction)
 	{
-		this.updateAvailableBalance();
 		this.updateReconciledBalance();
+		this.updateAvailableBalance();
 	},
 
 	updateAvailableBalance: function()
