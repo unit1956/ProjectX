@@ -11,7 +11,7 @@ var AppView = Backbone.View.extend({
 		this.account = new Account();
 		this.accountTransactions = this.account.get('transactions');
 
-		this.accountTransactions.on('add', this.transactionAdded);
+		this.listenTo(this.accountTransactions, 'add', this.transactionAdded);
 	},
 
 	addTransaction: function() {

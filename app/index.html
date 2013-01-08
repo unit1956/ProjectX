@@ -16,21 +16,21 @@
         <!-- Add your site or application content here -->
 
         <div id="app">
-            <div class="add-transaction" href="#">+</div>
+            <div class="add-transaction">+</div>
             <ul class="transaction-list">
 
             </ul>
         </div>
 
         <script type="text/template" id="transaction-template">
-            <%- title %> - <%- amount %> - <%- date %>
+            <span><%- title %> - <%- amount %> - <%- date %></span>
             <input class="reconcile" type="checkbox" <%= reconciled ? 'checked' : '' %>>
         </script>
 
         <!-- build:js scripts/scripts.js -->
         <script src="scripts/vendor/jquery.min.js"></script>
         <script src="scripts/vendor/lodash.min.js"></script>
-        <script src="scripts/vendor/backbone-min.js"></script>
+        <script src="components/backbone/backbone-min.js"></script>
         <script src="scripts/models/transaction.js"></script>
         <script src="scripts/collections/transactionCollection.js"></script>
         <script src="scripts/models/account.js"></script>
