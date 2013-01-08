@@ -23,8 +23,9 @@
         </div>
 
         <script type="text/template" id="transaction-template">
-            <span><%- title %> - <%- amount %> - <%- date %></span>
+            <span><%- title %> - <%- currency %><%- amount %> - <%- date %></span>
             <input class="reconcile" type="checkbox" <%= reconciled ? 'checked' : '' %>>
+            <input class="delete" type="submit" value="delete">
         </script>
 
         <!-- build:js scripts/scripts.js -->
@@ -35,6 +36,7 @@
         <script src="scripts/collections/transactionCollection.js"></script>
         <script src="scripts/models/account.js"></script>
         <script src="scripts/views/transactionView.js"></script>
+        <script src="scripts/views/accountView.js"></script>
         <script src="scripts/views/appView.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->

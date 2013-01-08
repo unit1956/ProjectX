@@ -7,21 +7,27 @@ var TransactionView = Backbone.View.extend({
 	template: _.template( $('#transaction-template').html() ),
 
 	events: {
-		'click .reconcile': 'toggleReconciled'
+		'click .reconcile': 'toggleReconciled',
+		'click .delete': 'deleteTransaction'
 	},
 
-	initialize: function() {
-		this.listenTo(this.model, 'change', this.render);
-	},
+	render: function(asId, asCurrency) {
+		var data = this.model.toJSON();
+		data.currency = asCurrency;
 
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
+		this.$el.html(this.template(data));
+		this.$el.attr('data-cid', asId);
 		this.$el.toggleClass('reconciled', this.model.get('reconciled'));
 		return this;
 	},
 
 	toggleReconciled: function() {
-		this.model.set('reconciled', this.$('.reconcile').attr('checked'));
+		this.model.set('reconciled', this.$('.reconcile').attr('checked') == 'checked' ? true : false);
+	},
+
+	deleteTransaction: function() {
+		this.model.destroy();
+		this.remove();
 	}
 
 });
