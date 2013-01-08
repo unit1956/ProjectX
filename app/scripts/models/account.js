@@ -16,14 +16,29 @@ var Account = Backbone.Model.extend({
 
 	initialize: function()
 	{
+		this.accountTransactions = this.get('transactions');
+
+		this.attach();
+
 		this.set('reconciledBalance', this.get('initialBalance'));
 		this.set('availableBalance', this.get('initialBalance'));
 	},
 
+	attach: function()
+	{
+		// Transaction events
+		this.listenTo(this.accountTransactions, 'add', this.transactionAdded);
+		this.listenTo(this.accountTransactions, 'change', this.transactionChanged);
+		this.listenTo(this.accountTransactions, 'remove', this.transactionRemoved);
+	},
+
 	addTransaction: function(aoTransaction)
 	{
-		this.get('transactions').add(aoTransaction);
+		this.accountTransactions.add(aoTransaction);
+	},
 
+	transactionAdded: function()
+	{
 		this.updateReconciledBalance();
 		this.updateAvailableBalance();
 	},
@@ -41,13 +56,13 @@ var Account = Backbone.Model.extend({
 
 	updateAvailableBalance: function()
 	{
-		var transactionsSum = this.get('transactions').pluck('amount').sum();
+		var transactionsSum = this.accountTransactions.pluck('amount').sum();
 		this.set('availableBalance', this.get('initialBalance') + transactionsSum);
 	},
 
 	updateReconciledBalance: function()
 	{
-		var reconciledTransactionsSum = this.get('transactions').where({'reconciled': true}).map(function(aoTransaction){
+		var reconciledTransactionsSum = this.accountTransactions.where({'reconciled': true}).map(function(aoTransaction){
 			return aoTransaction.get('amount');
 		}).sum();
 

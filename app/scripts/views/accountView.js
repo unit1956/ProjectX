@@ -1,27 +1,46 @@
 var AccountView = Backbone.View.extend({
 
-	el: '#account',
+	el: '.account',
 
 	template: _.template( $('#screen-template').html() ),
+
+	events: {
+		'click .add-transaction': 'addTransaction'
+	},
 
 	initialize: function()
 	{
 		this.accountTransactions = this.model.get('transactions');
 
+		this.attach();
+
+		this.render();
+
+		for(var i=0; i<5; i++)
+		{
+			this.addTransaction();
+		}
+	},
+
+	attach: function()
+	{
 		// Account events
-		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'change:reconciledBalance change:availableBalance', this.render);
 
 		// Transaction events
 		this.listenTo(this.accountTransactions, 'add', this.transactionAdded);
 		this.listenTo(this.accountTransactions, 'change', this.transactionChanged);
-		this.listenTo(this.accountTransactions, 'remove', this.transactionRemoved);
-
-		this.render();
 	},
 
 	render: function()
 	{
 		this.$('.screen').html(this.template(this.model.toJSON()));
+	},
+
+	addTransaction: function()
+	{
+		var t = new Transaction({ amount: getRandomInt(-50, 50), reconciled: getRandomInt(0, 1) ? true : false });
+		this.model.addTransaction(t);
 	},
 
 	transactionAdded: function(aoTransaction)
@@ -34,13 +53,6 @@ var AccountView = Backbone.View.extend({
 	{
 		var tv = new TransactionView({ model: aoTransaction });
 		this.$('[data-cid=' + aoTransaction.cid + ']').replaceWith( tv.render(aoTransaction.cid, this.model.get('currency')).el );
-
-		this.model.transactionChanged(aoTransaction);
-	},
-
-	transactionRemoved: function(aoTransaction)
-	{
-		this.model.transactionRemoved(aoTransaction);
 	}
 
 });
