@@ -6,27 +6,16 @@ var AppView = Backbone.View.extend({
 		'click .add-transaction': 'addTransaction'
 	},
 
-	initialize: function() {
-
+	initialize: function()
+	{
 		this.account = new Account();
-		this.accountTransactions = this.account.get('transactions');
-
-		this.listenTo(this.accountTransactions, 'add', this.transactionAdded);
-		this.listenTo(this.accountTransactions, 'change', this.transactionChanged);
+		this.accountView = new AccountView({ model: this.account });
 	},
 
-	addTransaction: function() {
-		this.accountTransactions.add( new Transaction({amount: getRandomInt(5, 50)}) );
-	},
-
-	transactionAdded: function(aoTransaction) {
-		var tv = new TransactionView({model: aoTransaction});
-		this.$('.transaction-list').append( tv.render(aoTransaction.cid, this.account.get('currency')).el );
-	},
-
-	transactionChanged: function(aoTransaction) {
-		var tv = new TransactionView({model: aoTransaction});
-		this.$('[data-cid=' + aoTransaction.cid + ']').replaceWith( tv.render(aoTransaction.cid, this.account.get('currency')).el );
+	addTransaction: function()
+	{
+		var t = new Transaction({ amount: getRandomInt(-50, -5) });
+		this.account.addTransaction(t);
 	}
 
 });

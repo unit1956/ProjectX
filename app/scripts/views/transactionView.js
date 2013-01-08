@@ -8,7 +8,7 @@ var TransactionView = Backbone.View.extend({
 
 	events: {
 		'click .reconcile': 'toggleReconciled',
-		'click .delete': 'deleteTransaction'
+		'click .remove': 'removeTransaction'
 	},
 
 	render: function(asId, asCurrency) {
@@ -25,7 +25,7 @@ var TransactionView = Backbone.View.extend({
 		this.model.set('reconciled', this.$('.reconcile').attr('checked') == 'checked' ? true : false);
 	},
 
-	deleteTransaction: function() {
+	removeTransaction: function() {
 		this.model.destroy();
 		this.remove();
 	}

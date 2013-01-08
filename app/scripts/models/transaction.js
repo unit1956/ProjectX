@@ -8,7 +8,7 @@ var Transaction = Backbone.Model.extend({
 			'amount': 0,
 			'reconciled': false,
 			'recuring': false
-		}
+		};
 
 	}
 
