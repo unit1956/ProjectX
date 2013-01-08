@@ -1,10 +1,11 @@
 var Transaction = Backbone.Model.extend({
 
 	defaults: {
-		'title': 'Default title',
-		'amount': 0,
+		'title': 'Default transaction title',
 		'date': (new Date()).getTime(),
-		'reconciled': false
+		'amount': 0,
+		'reconciled': false,
+		'recuring': false
 	}
 
 });

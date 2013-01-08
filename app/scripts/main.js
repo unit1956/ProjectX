@@ -1,16 +1,16 @@
 
 $(document).ready(function(){
 
-	var t = new Transaction();
-	var a = new Account();
+	var transaction = new Transaction();
+	var account = new Account();
+	var accountTransactions = account.get('transactions');
 
-	a.on('add', function(aoTransaction){
-
+	accountTransactions.on('add', function(aoTransaction){
 		console.log(aoTransaction.get('title'));
-
 	});
 
+	console.log(account.get('name'));
 
-	a.add(t);
+	accountTransactions.add(transaction);
 
 });

@@ -1,5 +1,5 @@
-var Account = Backbone.Collection.extend({
+var Transactions = Backbone.Collection.extend({
 
-  model: Transaction
+	model: Transaction
 
 });
