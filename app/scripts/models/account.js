@@ -7,7 +7,7 @@ var Account = Backbone.Model.extend({
 		'reconciledBalance': 0,
 		'availableBalance': 0,
 		'monthEnd': null,
-		'transactions': new Transactions()
+		'transactions': new TransactionCollection()
 	}
 
 });
