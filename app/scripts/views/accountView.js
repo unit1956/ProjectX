@@ -1,8 +1,11 @@
 var AccountView = Backbone.View.extend({
 
-	el: '.account',
+	tagName: 'div',
 
-	template: _.template( $('#screen-template').html() ),
+	className: 'account',
+
+	template: _.template( $('#account-template').html() ),
+	templateScreen: _.template( $('#screen-template').html() ),
 
 	events: {
 		'click .add-transaction': 'addTransaction'
@@ -25,7 +28,7 @@ var AccountView = Backbone.View.extend({
 	attach: function()
 	{
 		// Account events
-		this.listenTo(this.model, 'change:reconciledBalance change:availableBalance', this.render);
+		this.listenTo(this.model, 'change:reconciledBalance change:availableBalance', this.renderScreen);
 
 		// Transaction events
 		this.listenTo(this.accountTransactions, 'add', this.transactionAdded);
@@ -34,7 +37,16 @@ var AccountView = Backbone.View.extend({
 
 	render: function()
 	{
-		this.$('.screen').html(this.template(this.model.toJSON()));
+		this.$el.html(this.template(this.model.toJSON()));
+
+		this.renderScreen();
+
+		return this;
+	},
+
+	renderScreen: function()
+	{
+		this.$('.screen').html(this.templateScreen(this.model.toJSON()));
 	},
 
 	addTransaction: function()
