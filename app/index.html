@@ -18,7 +18,7 @@
         <div id="app">
 
             <div class="account">
-                <div class="add-transaction">+</div>
+                <input class="add-transaction" type="submit" value="add transaction">
                 <div class="screen"></div>
                 <ul class="transaction-list">
 
@@ -34,8 +34,8 @@
 
         <script type="text/template" id="transaction-template">
             <span><%- title %> » <%- amount %><%- currency %></span>
-            <input class="reconcile" type="checkbox" <%= reconciled ? 'checked' : '' %>>
-            <input class="remove" type="submit" value="remove">
+            <input class="reconcile-transaction" type="checkbox" <%= reconciled ? 'checked' : '' %>>
+            <input class="remove-transaction" type="submit" value="remove">
         </script>
 
         <!-- build:js scripts/scripts.js -->

@@ -7,8 +7,8 @@ var TransactionView = Backbone.View.extend({
 	template: _.template( $('#transaction-template').html() ),
 
 	events: {
-		'click .reconcile': 'toggleReconciled',
-		'click .remove': 'removeTransaction'
+		'click .reconcile-transaction': 'toggleReconciled',
+		'click .remove-transaction': 'removeTransaction'
 	},
 
 	render: function(asId, asCurrency) {
@@ -24,7 +24,7 @@ var TransactionView = Backbone.View.extend({
 	},
 
 	toggleReconciled: function() {
-		this.model.set('reconciled', this.$('.reconcile').attr('checked') == 'checked' ? true : false);
+		this.model.set('reconciled', this.$('.reconcile-transaction').attr('checked') == 'checked' ? true : false);
 	},
 
 	removeTransaction: function() {
