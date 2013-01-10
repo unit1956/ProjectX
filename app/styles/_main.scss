@@ -1,0 +1,36 @@
+
+body {
+	background: $backgroundColor;
+	color: $defaultCopyColor;
+	font-family: "Trebuchet MS";
+	font-size: 16px;
+
+	-webkit-font-smoothing: antialiased;
+}
+
+.transaction-list {
+	border-bottom: 1px solid lighten($backgroundColor, 20%);
+}
+
+.transaction {
+	padding: 1em;
+	border: {
+		bottom: 1px solid darken($backgroundColor, 10%);
+		top: 1px solid lighten($backgroundColor, 20%);
+	}
+}
+
+.transaction-date {
+	display: inline-block;
+	width: 30%;
+	font-size: 0.75em;
+	text-transform: uppercase;
+}
+
+.transaction-amount {
+	float: right;
+}
+
+.reconciled {
+	text-decoration: line-through;
+}

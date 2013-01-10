@@ -11,9 +11,11 @@ var TransactionView = Backbone.View.extend({
 		'click .remove-transaction': 'removeTransaction'
 	},
 
-	render: function(asId, asCurrency) {
+	render: function(asId, asCurrency)
+	{
 		var data = this.model.toJSON();
 		data.currency = asCurrency;
+		data.date = moment(data.date).calendar();
 
 		this.$el.html(this.template(data));
 		this.$el.attr('data-cid', asId);
@@ -23,11 +25,13 @@ var TransactionView = Backbone.View.extend({
 		return this;
 	},
 
-	toggleReconciled: function() {
+	toggleReconciled: function()
+	{
 		this.model.set('reconciled', this.$('.reconcile-transaction').attr('checked') == 'checked' ? true : false);
 	},
 
-	removeTransaction: function() {
+	removeTransaction: function()
+	{
 		this.model.destroy();
 		this.remove();
 	}

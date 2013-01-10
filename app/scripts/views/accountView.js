@@ -19,10 +19,11 @@ var AccountView = Backbone.View.extend({
 
 		this.render();
 
-		for(var i=0; i<5; i++)
-		{
-			this.addTransaction();
-		}
+		this.model.addTransaction(new Transaction({ amount: -23.31, title: "Waitrose", date: moment().subtract('days', 7).toDate().getTime() }));
+		this.model.addTransaction(new Transaction({ amount: -1083.33, title: "Rent", date: moment().subtract('days', 3).toDate().getTime() }));
+		this.model.addTransaction(new Transaction({ amount: 2857.54, title: "R/GA", date: moment().subtract('days', 1).toDate().getTime() }));
+		this.model.addTransaction(new Transaction({ amount: -5.50, title: "Gail's" }));
+		this.model.addTransaction(new Transaction({ amount: -0.89, title: "App Store", date: moment().add('days', 3).toDate().getTime() }));
 	},
 
 	attach: function()
