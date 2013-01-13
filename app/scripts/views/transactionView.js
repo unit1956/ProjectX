@@ -15,7 +15,8 @@ var TransactionView = Backbone.View.extend({
 	{
 		var data = this.model.toJSON();
 		data.currency = asCurrency;
-		data.date = moment(data.date).calendar();
+		data.date = moment(data.date).format('MMM D');
+		data.absoluteAmount = Math.abs(data.amount);
 
 		this.$el.html(this.template(data));
 		this.$el.attr('data-cid', asId);

@@ -18,21 +18,22 @@
 
         <script type="text/template" id="account-template">
             <input class="add-transaction" type="submit" value="add transaction">
-            <div class="screen transaction"></div>
+            <div class="screen"></div>
             <ul class="transaction-list">
 
             </ul>
         </script>
 
         <script type="text/template" id="screen-template">
-            Reconciled balance: <%- reconciledBalance %><%- currency %><br />
-            Available balance: <%- availableBalance %><%- currency %>
+            <span class="available-balance"><%- availableBalance %><%- currency %></span> safe to spend
+            <span class="reconciled-balance"><%- reconciledBalance %><%- currency %></span>
         </script>
 
         <script type="text/template" id="transaction-template">
-            <span class="transaction-date"><%- date %></span>
             <span class="transaction-title"><%- title %></span>
-            <span class="transaction-amount"><%- amount %><%- currency %></span>
+            <span class="transaction-date"><%- date %></span>
+            <!-- <% if(amount > 0) { %><i class="icon-amount-state icon-signin"></i><% } else { %><i class="icon-amount-state icon-signout"></i><% } %> -->
+            <span class="transaction-amount"><%- currency %><%- absoluteAmount %></span>
             <!-- <input class="reconcile-transaction" type="checkbox" <%= reconciled ? 'checked' : '' %>>
             <input class="remove-transaction" type="submit" value="remove"> -->
         </script>
