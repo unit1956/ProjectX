@@ -3,7 +3,7 @@ var Transaction = Backbone.Model.extend({
 	defaults: function() {
 
 		return {
-			'title': 'Default title',
+			'title': 'Title',
 			'date': (new Date()).getTime(),
 			'amount': 0,
 			'reconciled': false,

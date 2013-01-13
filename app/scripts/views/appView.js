@@ -4,7 +4,7 @@ var AppView = Backbone.View.extend({
 
 	initialize: function()
 	{
-		this.account = new Account();
+		this.account = new Account({ name: 'HSBC' });
 		this.accountView = new AccountView({ model: this.account });
 
 		this.render();

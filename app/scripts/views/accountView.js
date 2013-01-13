@@ -24,6 +24,7 @@ var AccountView = Backbone.View.extend({
 		this.model.addTransaction(new Transaction({ amount: 2857.54, title: "R/GA", date: moment().subtract('days', 1).toDate().getTime() }));
 		this.model.addTransaction(new Transaction({ amount: -5.50, title: "Gail's", reconciled: true }));
 		this.model.addTransaction(new Transaction({ amount: -0.89, title: "App Store", date: moment().add('days', 3).toDate().getTime() }));
+		this.model.addTransaction(new Transaction({ amount: 0.54, title: "R/GA", date: moment().add('days', 5).toDate().getTime(), reconciled: true }));
 	},
 
 	attach: function()

@@ -11,25 +11,60 @@ body {
 
 * { -webkit-user-select: none; }
 
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.account-toolbar {
+	position: relative;
+	line-height: 3.5em;
+
+	color: $darkGrey;
+	border-bottom: 1px solid lighten($creditColor, 40%);
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+	.add-transaction {
+		display: block;
+		width: 4em;
+
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
 .screen {
-	display: none;
-	line-height: 3em;
 	padding: 0 0.75em;
+
+	background-color: lighten($creditColor, 50%);
+	border-bottom: 1px solid lighten($creditColor, 40%);
+	color: $creditColor;
+	line-height: 3.5em;
+}
+
+.safe-to-spend {
+	font-size: 0.75em;
+	margin-left: 0.5em;
+}
+
+.available-balance {
+	font-weight: bold;
 }
 
 .reconciled-balance {
 	float: right;
 }
 
-.transaction-list {
-	border-top: 1px solid darken($backgroundColor, 8%);
-}
+.transaction-list {}
 
-.transaction-list li:nth-child(even) {
-	background-color: darken($backgroundColor, 3%);
-}
+	.transaction-list li:nth-child(even) {
+		background-color: darken($backgroundColor, 2%);
+	}
 
 .transaction {
+	position: relative;
 	border-bottom: 1px solid darken($backgroundColor, 8%);
 	line-height: 3.5em;
 	padding: 0 0.75em;
@@ -52,21 +87,20 @@ body {
 	font-size: 0.85em;
 }
 
-.icon-amount-state {
-	float: right;
-	margin-left: 0.5em;
-	color: $lightGrey;
-	font-size: 0.75em;
+.transaction-status {
+	position: relative;
+	top: -0.1em;
+	display: inline-block;
+	margin-left: 0.1em;
+	width:  0.3em;
+	height: 0.3em;
+
+	border: 0.2em solid darken($backgroundColor, 8%);
+	border-radius: 0.5em;
 }
 
-.credit .transaction-amount {
-	color: #88bb88;
-}
+.credit .transaction-status { border-color: $creditColor; }
+.debit .transaction-status { border-color: $debitColor; }
 
-.debit .transaction-amount {
-	color: #bb8888;
-}
-
-.reconciled .transaction-amount {
-	text-decoration: line-through;
-}
+.reconciled.credit .transaction-status { background-color: $creditColor; }
+.reconciled.debit .transaction-status { background-color: $debitColor; }
