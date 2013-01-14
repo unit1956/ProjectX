@@ -1,0 +1,52 @@
+
+.transaction-list {}
+
+	.transaction-list li:nth-child(even) {
+		background-color: $backgroundColorAlt;
+	}
+
+	.transaction {
+		padding: 0 0.75em;
+
+		position: relative;
+
+		border-bottom: 1px solid $borderColor;
+		line-height: 3.5em;
+	}
+
+		.transaction-title {
+			color: $darkGrey;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+		.transaction-date {
+			margin-left: 0.5em;
+
+			color: $lightGrey;
+			font-size: 0.75em;
+		}
+
+		.transaction-amount {
+			float: right;
+
+			font-size: 0.85em;
+		}
+
+		.transaction-status {
+			display: inline-block;
+			width:  0.3em;
+			height: 0.3em;
+
+			position: relative;
+			margin-left: 0.1em;
+			top: -0.1em;
+
+			border: 0.2em solid $borderColor;
+			border-radius: 0.5em;
+		}
+
+			.credit .transaction-status { border-color: $creditColor; }
+			.credit.reconciled .transaction-status { background-color: $creditColor; }
+			.debit .transaction-status { border-color: $debitColor; }
+			.debit.reconciled .transaction-status { background-color: $debitColor; }

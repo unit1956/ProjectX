@@ -1,10 +1,16 @@
+
 $backgroundColor: #fff;
+$backgroundColorAlt: darken($backgroundColor, 2%);
+$borderColor: darken($backgroundColor, 8%);
+
 $darkGrey: #444;
 $mediumGrey: #888;
 $lightGrey: #bbb;
+
 $creditColor: #339966;
 $debitColor: #cc3355;
 
 
 @import "reset";
+@import "transactions";
 @import "main";
