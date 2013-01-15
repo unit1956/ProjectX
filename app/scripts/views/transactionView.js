@@ -8,7 +8,18 @@ var TransactionView = Backbone.View.extend({
 
 	events: {
 		'click .reconcile-transaction': 'toggleReconciled',
-		'click .remove-transaction': 'removeTransaction'
+		'click .remove-transaction': 'removeTransaction',
+		'click': 'toggleReconciled'
+	},
+
+	initialize: function()
+	{
+		this.attach();
+	},
+
+	attach: function()
+	{
+		this.listenTo(this.model, 'change:reconciled', this.transactionReconciledChanged);
 	},
 
 	render: function(asId, asCurrency)
@@ -26,9 +37,28 @@ var TransactionView = Backbone.View.extend({
 		return this;
 	},
 
+	transactionReconciledChanged: function(aoModel, abValue)
+	{
+		var status = this.$('.transaction-status');
+
+		if(abValue)
+		{
+			this.$el.addClass('reconciled');
+			status.addClass('feedback-reconciled');
+			setTimeout(function(){ status.removeClass('feedback-reconciled'); }, 200);
+		}
+		else
+		{
+			this.$el.removeClass('reconciled');
+			status.addClass('feedback-unreconciled');
+			setTimeout(function(){ status.removeClass('feedback-unreconciled'); }, 200);
+		}
+	},
+
 	toggleReconciled: function()
 	{
-		this.model.set('reconciled', this.$('.reconcile-transaction').attr('checked') == 'checked' ? true : false);
+		this.model.toggleReconciled();
+		//this.model.set('reconciled', this.$('.reconcile-transaction').attr('checked') == 'checked' ? true : false);
 	},
 
 	removeTransaction: function()

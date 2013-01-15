@@ -44,9 +44,20 @@
 
 			border: 0.2em solid $borderColor;
 			border-radius: 0.5em;
+
+			-webkit-transition: background-color 300ms 100ms;
 		}
 
 			.credit .transaction-status { border-color: $creditColor; }
 			.credit.reconciled .transaction-status { background-color: $creditColor; }
 			.debit .transaction-status { border-color: $debitColor; }
 			.debit.reconciled .transaction-status { background-color: $debitColor; }
+
+			.feedback-reconciled,
+			.feedback-unreconciled { -webkit-animation: pulse 150ms $easeOutExpo; }
+
+			@-webkit-keyframes pulse {
+				0%   { -webkit-transform: scale(1); }
+				50%  { -webkit-transform: scale(2); }
+				100% { -webkit-transform: scale(1); }
+			}

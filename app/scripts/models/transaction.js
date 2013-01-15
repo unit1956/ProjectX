@@ -10,6 +10,28 @@ var Transaction = Backbone.Model.extend({
 			'recuring': false
 		};
 
+	},
+
+	toggleReconciled: function()
+	{
+		if(this.get('reconciled') === true)
+		{
+			this.unreconcile();
+		}
+		else
+		{
+			this.reconcile();
+		}
+	},
+
+	reconcile: function()
+	{
+		this.set('reconciled', true);
+	},
+
+	unreconcile: function()
+	{
+		this.set('reconciled', false);
 	}
 
 });

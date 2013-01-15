@@ -34,7 +34,7 @@ var AccountView = Backbone.View.extend({
 
 		// Transaction events
 		this.listenTo(this.accountTransactions, 'add', this.transactionAdded);
-		this.listenTo(this.accountTransactions, 'change', this.transactionChanged);
+		//this.listenTo(this.accountTransactions, 'change', this.transactionChanged);
 	},
 
 	render: function()
@@ -61,12 +61,12 @@ var AccountView = Backbone.View.extend({
 	{
 		var tv = new TransactionView({ model: aoTransaction });
 		this.$('.transaction-list').append( tv.render(aoTransaction.cid, this.model.get('currency')).el );
-	},
+	}/*,
 
 	transactionChanged: function(aoTransaction)
 	{
 		var tv = new TransactionView({ model: aoTransaction });
 		this.$('[data-cid=' + aoTransaction.cid + ']').replaceWith( tv.render(aoTransaction.cid, this.model.get('currency')).el );
-	}
+	}*/
 
 });
