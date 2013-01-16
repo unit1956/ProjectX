@@ -19,6 +19,10 @@ var TransactionView = Backbone.View.extend({
 
 	attach: function()
 	{
+		this.$el.on('touchstart', _.bind(this.onTouchStart, this));
+		this.$el.on('touchmove', _.bind(this.onTouchMove, this));
+		this.$el.on('touchend', _.bind(this.onTouchEnd, this));
+
 		this.listenTo(this.model, 'change:reconciled', this.transactionReconciledChanged);
 	},
 
@@ -64,6 +68,27 @@ var TransactionView = Backbone.View.extend({
 	{
 		this.model.destroy();
 		this.remove();
+	},
+
+	onTouchStart: function(aeEvent)
+	{
+		//aeEvent.preventDefault();
+
+		this.touchStartX = aeEvent.originalEvent.targetTouches[0].pageX;
+	},
+
+	onTouchMove: function(aeEvent)
+	{
+		//aeEvent.preventDefault();
+
+		var curX = aeEvent.originalEvent.targetTouches[0].pageX - this.touchStartX;
+
+		this.$el.css('webkit-transform', 'translate3d(' + curX + 'px, 0, 0)');
+	},
+
+	onTouchEnd: function(aeEvent)
+	{
+		this.$el.css('webkit-transform', 'translate3d(0, 0, 0)');
 	}
 
 });

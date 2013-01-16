@@ -1,5 +1,12 @@
 
-.transaction-list {}
+.transaction-list {
+	background-color: $lightGrey;
+	list-style: none;
+}
+
+	.transaction-list li {
+		background-color: $backgroundColor;
+	}
 
 	.transaction-list li:nth-child(even) {
 		background-color: $backgroundColorAlt;
@@ -12,6 +19,8 @@
 
 		border-bottom: 1px solid $borderColor;
 		line-height: 3.5em;
+
+		-webkit-transition: -webkit-transform 300ms $easeOutExpo;
 	}
 
 		.transaction-title {
