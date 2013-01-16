@@ -21,7 +21,7 @@ var AccountView = Backbone.View.extend({
 
 		this.model.addTransaction(new Transaction({ amount: -23.31, title: "Waitrose", date: moment().subtract('months', 5).add('days', 8).toDate().getTime(), reconciled: true }));
 		this.model.addTransaction(new Transaction({ amount: -1083.33, title: "Rent", date: moment().subtract('months', 3).subtract('days', 5).toDate().getTime() }));
-		this.model.addTransaction(new Transaction({ amount: 2857.54, title: "R/GA", date: moment().subtract('days', 1).toDate().getTime() }));
+		this.model.addTransaction(new Transaction({ amount: 857.54, title: "R/GA", date: moment().subtract('days', 1).toDate().getTime() }));
 		this.model.addTransaction(new Transaction({ amount: -5.50, title: "Gail's", reconciled: true }));
 		this.model.addTransaction(new Transaction({ amount: -0.89, title: "App Store", date: moment().add('days', 3).toDate().getTime() }));
 		this.model.addTransaction(new Transaction({ amount: 0.54, title: "R/GA", date: moment().add('days', 5).toDate().getTime(), reconciled: true }));
@@ -34,7 +34,6 @@ var AccountView = Backbone.View.extend({
 
 		// Transaction events
 		this.listenTo(this.accountTransactions, 'add', this.transactionAdded);
-		//this.listenTo(this.accountTransactions, 'change', this.transactionChanged);
 	},
 
 	render: function()
@@ -61,12 +60,6 @@ var AccountView = Backbone.View.extend({
 	{
 		var tv = new TransactionView({ model: aoTransaction });
 		this.$('.transaction-list').append( tv.render(aoTransaction.cid, this.model.get('currency')).el );
-	}/*,
-
-	transactionChanged: function(aoTransaction)
-	{
-		var tv = new TransactionView({ model: aoTransaction });
-		this.$('[data-cid=' + aoTransaction.cid + ']').replaceWith( tv.render(aoTransaction.cid, this.model.get('currency')).el );
-	}*/
+	}
 
 });

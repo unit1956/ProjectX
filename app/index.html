@@ -22,7 +22,7 @@
 
         <script type="text/template" id="account-template">
             <nav class="account-toolbar">
-                <%- name %>
+                <%= name %>
                 <a href="#add-transaction" class="add-transaction">+</a>
             </nav>
             <div class="screen"></div>
@@ -32,20 +32,18 @@
         </script>
 
         <script type="text/template" id="screen-template">
-            <span class="available-balance"><%- currency %><%- availableBalance %></span>
+            <span class="available-balance"><%= currency %><%= availableBalance %></span>
             <span class="safe-to-spend">safe to spend</span>
-            <span class="reconciled-balance"><%- currency %><%- reconciledBalance %></span>
+            <span class="reconciled-balance"><%= currency %><%= reconciledBalance %></span>
         </script>
 
         <script type="text/template" id="transaction-template">
-            <span class="transaction-title"><%- title %></span>
-            <span class="transaction-date"><%- date %></span>
+            <span class="transaction-title"><%= title %></span>
+            <span class="transaction-date"><%= date %></span>
             <span class="transaction-amount">
-                <%- currency %><%- absoluteAmount %>
+                <%= currency %><%= absoluteAmount %>
                 <span class="transaction-status"></span>
             </span>
-            <!-- <input class="reconcile-transaction" type="checkbox" <%= reconciled ? 'checked' : '' %>>
-            <input class="remove-transaction" type="submit" value="remove"> -->
         </script>
 
         <!-- build:js scripts/scripts.js -->

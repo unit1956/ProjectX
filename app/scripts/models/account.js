@@ -57,7 +57,7 @@ var Account = Backbone.Model.extend({
 	updateAvailableBalance: function()
 	{
 		var transactionsSum = this.accountTransactions.pluck('amount').sum();
-		this.set('availableBalance', this.get('initialBalance') + transactionsSum);
+		this.set('availableBalance', (this.get('initialBalance') + transactionsSum).toFixed(2) );
 	},
 
 	updateReconciledBalance: function()
@@ -66,7 +66,7 @@ var Account = Backbone.Model.extend({
 			return aoTransaction.get('amount');
 		}).sum();
 
-		this.set('reconciledBalance', this.get('initialBalance') + reconciledTransactionsSum);
+		this.set('reconciledBalance', (this.get('initialBalance') + reconciledTransactionsSum).toFixed(2) );
 	}
 
 });

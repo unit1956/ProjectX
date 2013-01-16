@@ -58,7 +58,6 @@ var TransactionView = Backbone.View.extend({
 	toggleReconciled: function()
 	{
 		this.model.toggleReconciled();
-		//this.model.set('reconciled', this.$('.reconcile-transaction').attr('checked') == 'checked' ? true : false);
 	},
 
 	removeTransaction: function()
