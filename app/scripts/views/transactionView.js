@@ -8,8 +8,7 @@ var TransactionView = Backbone.View.extend({
 
 	events: {
 		'click .reconcile-transaction': 'toggleReconciled',
-		'click .remove-transaction': 'removeTransaction',
-		'click': 'toggleReconciled'
+		'click .remove-transaction': 'removeTransaction'
 	},
 
 	initialize: function()
@@ -72,22 +71,57 @@ var TransactionView = Backbone.View.extend({
 
 	onTouchStart: function(aeEvent)
 	{
+		var e = aeEvent.originalEvent;
+
+		this.moved = false;
+
 		//aeEvent.preventDefault();
 
-		this.touchStartX = aeEvent.originalEvent.targetTouches[0].pageX;
+		this.touchStartX = e.targetTouches[0].pageX;
+		this.touchStartY = e.targetTouches[0].pageY;
+
+		this.gestureTwoFingersTouch = e.targetTouches.length == 2;
+		this.gestureSwipe = e.targetTouches.length == 1;
 	},
 
 	onTouchMove: function(aeEvent)
 	{
-		//aeEvent.preventDefault();
+		var e = aeEvent.originalEvent;
 
-		var curX = aeEvent.originalEvent.targetTouches[0].pageX - this.touchStartX;
+		this.moved = true;
 
-		this.$el.css('webkit-transform', 'translate3d(' + curX + 'px, 0, 0)');
+		this.curX = e.targetTouches[0].pageX - this.touchStartX;
+		this.curY = e.targetTouches[0].pageY - this.touchStartY;
+
+		if(Math.abs(this.curX) > 20 && Math.abs(this.curY) < 50)
+		{
+			this.$el.css('webkit-transform', 'translate3d(' + this.curX + 'px, 0, 0)');
+		}
+
+		this.gestureTwoFingersTouch = false;
+		this.gestureSwipe = e.touches.length <= 1 && Math.abs(this.curX) > 50 && Math.abs(this.curY) < 20;
 	},
 
 	onTouchEnd: function(aeEvent)
 	{
+		var e = aeEvent.originalEvent;
+
+		this.gestureSwipe = this.gestureSwipe && this.moved && e.touches.length <= 1;
+
+
+		if(this.gestureTwoFingersTouch)
+		{
+			console.log('Gesture: 2 finger touch!');
+		}
+		this.gestureTwoFingersTouch = false;
+
+
+		if(this.gestureSwipe)
+		{
+			console.log('Gesture: horizontal swipe');
+		}
+		this.gestureSwipe = false;
+
 		this.$el.css('webkit-transform', 'translate3d(0, 0, 0)');
 	}
 
