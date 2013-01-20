@@ -7,7 +7,6 @@ var TransactionView = Backbone.View.extend({
 	template: _.template( $('#transaction-template').html() ),
 
 	events: {
-		'click .reconcile-transaction': 'toggleReconciled',
 		'click .remove-transaction': 'removeTransaction'
 	},
 
@@ -16,8 +15,8 @@ var TransactionView = Backbone.View.extend({
 		this.attach();
 
 		this.options = {
-			xDragThreshold: 20,
-			yDragThreshold: 50
+			dragThresholdX: 30,
+			dragThresholdY: 30
 		};
 	},
 
@@ -63,11 +62,6 @@ var TransactionView = Backbone.View.extend({
 		}
 	},
 
-	toggleReconciled: function()
-	{
-		this.model.toggleReconciled();
-	},
-
 	removeTransaction: function()
 	{
 		this.model.destroy();
@@ -78,57 +72,36 @@ var TransactionView = Backbone.View.extend({
 	{
 		var e = aeEvent.originalEvent;
 
-		this.moved = false;
-
-		//aeEvent.preventDefault();
-
 		this.touchStartX = e.targetTouches[0].pageX;
 		this.touchStartY = e.targetTouches[0].pageY;
-
-		this.gestureTwoFingersTouch = e.targetTouches.length == 2;
-		this.gestureSwipe = e.targetTouches.length == 1;
 	},
 
 	onTouchMove: function(aeEvent)
 	{
 		var e = aeEvent.originalEvent;
 
-		this.moved = true;
-
 		this.curX = e.targetTouches[0].pageX - this.touchStartX;
 		this.curY = e.targetTouches[0].pageY - this.touchStartY;
 
-		var tx = this.curX + this.options.xDragThreshold * (this.curX < 0 ? 1 : -1);
+		this.tx = this.curX + this.options.dragThresholdX * (this.curX < 0 ? 1 : -1);
 
-		if(Math.abs(this.curX) > this.options.xDragThreshold && Math.abs(this.curY) < this.options.yDragThreshold)
+		if( Math.abs(this.curX) > this.options.dragThresholdX &&
+			Math.abs(this.curY) < this.options.dragThresholdY )
 		{
 			aeEvent.preventDefault();
-			this.$el.css('webkit-transform', 'translate3d(' + tx + 'px, 0, 0)');
+			this.$el.css('webkit-transform', 'translate3d(' + this.tx + 'px, 0, 0)');
 		}
-
-		this.gestureTwoFingersTouch = false;
-		this.gestureSwipe = e.touches.length <= 1 && Math.abs(this.curX) > 50 && Math.abs(this.curY) < 20;
 	},
 
 	onTouchEnd: function(aeEvent)
 	{
 		var e = aeEvent.originalEvent;
 
-		this.gestureSwipe = this.gestureSwipe && this.moved && e.touches.length <= 1;
-
-
-		if(this.gestureTwoFingersTouch)
+		if(Math.abs(this.tx) > 50)
 		{
-			console.log('Gesture: 2 finger touch!');
+			this.tx = 0;
+			this.model.toggleReconciled();
 		}
-		this.gestureTwoFingersTouch = false;
-
-
-		if(this.gestureSwipe)
-		{
-			console.log('Gesture: horizontal swipe');
-		}
-		this.gestureSwipe = false;
 
 		this.$el.css('webkit-transform', 'translate3d(0, 0, 0)');
 	}
