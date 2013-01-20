@@ -14,6 +14,11 @@ var TransactionView = Backbone.View.extend({
 	initialize: function()
 	{
 		this.attach();
+
+		this.options = {
+			xDragThreshold: 20,
+			yDragThreshold: 50
+		};
 	},
 
 	attach: function()
@@ -93,9 +98,12 @@ var TransactionView = Backbone.View.extend({
 		this.curX = e.targetTouches[0].pageX - this.touchStartX;
 		this.curY = e.targetTouches[0].pageY - this.touchStartY;
 
-		if(Math.abs(this.curX) > 20 && Math.abs(this.curY) < 50)
+		var tx = this.curX + this.options.xDragThreshold * (this.curX < 0 ? 1 : -1);
+
+		if(Math.abs(this.curX) > this.options.xDragThreshold && Math.abs(this.curY) < this.options.yDragThreshold)
 		{
-			this.$el.css('webkit-transform', 'translate3d(' + this.curX + 'px, 0, 0)');
+			aeEvent.preventDefault();
+			this.$el.css('webkit-transform', 'translate3d(' + tx + 'px, 0, 0)');
 		}
 
 		this.gestureTwoFingersTouch = false;
